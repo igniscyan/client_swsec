@@ -47,8 +47,9 @@ export default {
        }).then((response) => {
          console.log(response);
          if(response.status==200){
-           localStorage.setItem('token', response.token);
+           localStorage.setItem('token', response.data.token);
            localStorage.setItem('user',response.data.data.username);
+           localStorage.setItem('userLevel', response.data.data.userLevel);
            instance.$router.push('/')
          }
        }).catch((err) => {

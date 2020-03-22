@@ -4,7 +4,7 @@
       <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 8 : 2} clickable`">
         <v-card-title primary-title size="100%">
           <div>
-            <h3 class="headline mb-0">{{username}}</h3>
+            <h3 class="headline mb-0">Your Account Information</h3>
           </div>
         </v-card-title>
 
@@ -48,7 +48,7 @@ export default {
     var instance = this;
     this.username = localStorage.getItem("user");
     this.axios
-      .get(`/users/${this.username}`)
+      .get(`/users/find/${this.username}`)
       .then(response => {
         console.log(response);
         if (response.status == 200) {

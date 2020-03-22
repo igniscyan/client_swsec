@@ -41,6 +41,7 @@ export default {
           console.log(response);
            localStorage.setItem('token', response.data.token);
            localStorage.setItem('user',response.data.data.username);
+           localStorage.setItem('userLevel', response.data.data.userLevel);
            instance.$router.push('/')
 
           }
