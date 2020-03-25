@@ -1,7 +1,15 @@
 <template>
   <v-container>
     <v-hover>
-      <v-row align="center">
+         <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 8 : 2} clickable`">
+        <v-card-title primary-title size="100%">
+          <div>
+            <h3 class="headline mb-0">Your Account Information</h3>
+          </div>
+        </v-card-title>
+
+        <v-card-text>
+ <v-row align="center">
         <v-form ref="form" v-model="valid">
           <v-select
             v-model="model.username"
@@ -36,6 +44,9 @@
           <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
         </v-form>
       </v-row>
+        </v-card-text>
+      </v-card>
+
     </v-hover>
   </v-container>
 </template>
@@ -87,14 +98,20 @@ export default {
   },
   mounted() {
     let instance = this;
+    let userlevel = localStorage.getItem("userlevel");
+    let username = localStorage.getItem("user");
+    let isAdmin = userlevel == 2;
     this.axios
       .get("/users/all")
       .then(response => {
         console.log(response);
         if (response.status == 200) {
           for (let i of response.data) {
-            instance.items.push(i.username);
-            instance.userdata[(i.username)]=i;
+            if (isAdmin || i.username == username)
+            {
+              instance.items.push(i.username);
+              instance.userdata[(i.username)]=i;
+            }
           }
         }
       })
