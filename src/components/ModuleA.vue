@@ -18,6 +18,7 @@
                 </tr>
               </thead>
               <tbody>
+                <!--Is there a way we can hide the password from being shown here? If so we can try to make an exploit to show it -->
                 <tr v-for="(value,property) in bankdata" :key="property">
                   <td>{{property }}</td>
                   <td>{{ value }}</td>
@@ -45,11 +46,15 @@ export default {
     };
   },
   mounted() {
-    var instance = this;
+    let instance = this;
+    let token = localStorage.getItem('token');
     this.username = localStorage.getItem("user");
     this.axios
-      .get(`/users/find/${this.username}`)
+      .get(`/users/find/${this.username}`, {
+        headers: { "x-access-token": token }
+      })
       .then(response => {
+        //take this out of the secure site
         console.log(response);
         if (response.status == 200) {
           instance.bankdata = response.data.response[0];

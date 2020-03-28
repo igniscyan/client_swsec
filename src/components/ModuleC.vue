@@ -71,8 +71,11 @@ export default {
   },
   mounted() {
     let instance = this;
+    let token = localStorage.getItem('token');
     this.axios
-      .get("/users/all")
+      .get("/users/all", {
+        headers: { "x-access-token": token }
+      })
       .then(response => {
         console.log(response);
         if (response.status == 200) {

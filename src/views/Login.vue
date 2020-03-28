@@ -41,10 +41,13 @@ export default {
   methods: {
     submit: function(){
        let instance = this;
+       let token = localStorage.getItem('token');
        this.axios.post('users/login',{
          username: this.username,
-         password: this.password
-       }).then((response) => {
+         password: this.password,
+         token: token
+       })
+       .then((response) => {
          console.log(response);
          if(response.status==200){
            localStorage.setItem('token', response.data.token);
